@@ -1,0 +1,75 @@
+<html>
+
+<head>
+	<link rel="stylesheet" href="css/main.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.3.min.js"></script>
+	<script type="text/javascript" src="js/jquery.cycle.all.2.74.js"></script>
+	<script>
+
+const startTime = () => {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById('clock').innerHTML =
+    h + ":" + m ;
+    var t = setTimeout(startTime, 500);
+}
+const checkTime = (i) => {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+
+		const newBackground = () => {
+			$.getJSON("https://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?",
+				{
+					tags: "landscape,girl,porn",
+					format: "json",
+					size: "Original"
+				},
+
+
+				 (data) => {
+					startTime();
+
+					//Get random photo from the api's items array
+					let randomPhoto = data.items[Math.floor(Math.random() * data.items.length)];
+					let url = randomPhoto.media.m.replace("_m", "_h")
+					console.log(url)
+					$("#muie").css({
+
+
+						position: "relative",
+						height: "100vh",
+						//Use the randomPhoto's link
+						backgroundImage: "url(" + url + ")",
+						backgroundPosition: "center",
+						backgroundRepeat: "no-repeat",
+						backgroundSize: "cover"
+					});
+				}
+			);
+		}
+		newBackground();
+		setInterval(newBackground, 60000)
+
+
+	</script>
+</head>
+
+<body>
+
+	<div id="muie">
+		<div id="title">
+			<h3>mMusic Cast</h3>
+		</div>
+		<div id="clock">
+			4:20
+		</div>
+	</div>
+
+
+</body>
+<html>
