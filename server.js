@@ -10,8 +10,10 @@ const ssdp = require("peer-ssdp"),
 	request = require('superagent')
 	logger = require('morgan')
 	bodyParser = require('body-parser')
-	methodOverride = require('method-override');
-const name = "mMusicCast";
+  methodOverride = require('method-override'),
+  {exec} = require('child_process')
+const name = "mMusicCast"
+const isPi = require('detect-rpi')
 const WebSocketServer = require('websocket').server;
 const WebSocketRouter = require('websocket').router;
 const Apps = require('./apps/apps.js');
@@ -42,6 +44,23 @@ app.use( (req, res, next) => {
 app.disable('x-powered-by');
 
 var server = http.createServer(app);
+
+const spotifyConnect = () => {
+  let cmd = ''
+  if(process.platform === 'darwin') {
+    cmd = './spotify/librespot-darwin'
+  } else if(process.platform === 'linux') {
+    if(isPi()){
+      cmd = './spotify/librespot-pi'
+    } else {
+      cmd = './spotify/librespot-linux'
+    }
+  }
+  exec(`${cmd} --name ${name}`)
+  //windows not supported
+}
+
+spotifyConnect()
 
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
