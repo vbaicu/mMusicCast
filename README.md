@@ -1,6 +1,6 @@
 # mMusicCast
 
-Simple chromecast emulator wriiten in javascript on top of electron.
+Simple chromecast emulator writen in javascript on top of electron.
 ### Supported applications:
 * Youtube - all platforms
 * Spotify - Spotify connect using librespot (requires premium subscription and unix based os)
