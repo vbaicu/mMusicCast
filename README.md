@@ -1,5 +1,11 @@
 # mMusicCast
 
+## This project is discontinued. 
+
+**To run this project some changes might be required, due to the deprecation of used modules**
+
+Pull requests are welcomed if anybody whishes to maintain the project. 
+
 Simple chromecast emulator wriiten in javascript on top of electron.
 ### Supported applications:
 * Youtube - all platforms
